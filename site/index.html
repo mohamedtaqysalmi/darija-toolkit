@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>darija-toolkit — Arabizi to Arabic for Moroccan Darija</title>
+    <meta
+      name="description"
+      content="Rule-based transliteration, detection and normalization for Moroccan Darija. Python package, FastAPI, CLI, and a browser playground."
+    />
+    <meta property="og:title" content="darija-toolkit" />
+    <meta
+      property="og:description"
+      content="Transliteration, detection and normalization for Moroccan Darija text."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mohamedtaqysalmi.github.io/darija-toolkit/" />
+    <meta property="og:image" content="https://mohamedtaqysalmi.github.io/darija-toolkit/og.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="darija-toolkit" />
+    <meta
+      name="twitter:description"
+      content="Transliteration, detection and normalization for Moroccan Darija text."
+    />
+    <meta name="twitter:image" content="https://mohamedtaqysalmi.github.io/darija-toolkit/og.svg" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Naskh+Arabic:wght@500;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#playground">Skip to playground</a>
+    <header class="wrap site-header">
+      <div>
+        <span class="brand-mark" aria-hidden="true">د</span>
+        <strong>darija-toolkit</strong>
+      </div>
+      <nav aria-label="Primary">
+        <a href="https://github.com/mohamedtaqysalmi/darija-toolkit">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/mohamedtaqysalmi">Profile</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/in/mohamedtaqysalmi">LinkedIn</a>
+      </nav>
+    </header>
+
+    <section class="wrap hero" aria-label="Introduction">
+      <div class="hero-inner">
+        <h1 class="hero-brand">darija<span>-toolkit</span></h1>
+        <p>
+          I built this because chatbot pipelines choke on Moroccan chat text that mixes Arabizi,
+          Arabic script and French. The first release turns Arabizi into Arabic script with ranked
+          alternatives, then detects and normalizes the noisy bits.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#playground">Try the playground</a>
+          <a
+            class="btn btn-ghost"
+            href="https://github.com/mohamedtaqysalmi/darija-toolkit"
+            >Open the repo</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section class="wrap section" id="playground" aria-labelledby="playground-title">
+        <h2 id="playground-title">Playground</h2>
+        <p class="lede">
+          Runs entirely in your browser. The JS engine loads the same rule tables as the Python
+          package, and the known-failure table below comes from the shared fixture file.
+        </p>
+        <div class="playground">
+          <div class="panel">
+            <label for="input">Arabizi input</label>
+            <textarea id="input" spellcheck="false">salam labas 3lik</textarea>
+            <div class="sample-row" id="samples" aria-label="Sample inputs"></div>
+          </div>
+          <div class="panel">
+            <label for="output">Arabic script</label>
+            <p id="output" class="output-arab" dir="rtl" lang="ar">—</p>
+            <p class="meta" id="meta">Alternatives appear when a token is ambiguous.</p>
+            <ul class="alts" id="alts"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap section" aria-labelledby="problem-title">
+        <h2 id="problem-title">What problem it solves</h2>
+        <p class="lede">
+          Recruiters and clients in Morocco type Darija in Latin letters with digits for ع ح ق خ.
+          Most NLP stacks assume either clean MSA or French. This package is a small, testable
+          pre-processor for that middle ground.
+        </p>
+        <div class="split-2">
+          <div>
+            <h3>Works now</h3>
+            <ul>
+              <li>Arabizi → Arabic script with alternatives + scores</li>
+              <li>Heuristic detect: Arabizi / Darija Arabic / MSA / French / mixed</li>
+              <li>Chat normalizer (elongations, variants, punct noise)</li>
+              <li>FastAPI <code>/transliterate</code> <code>/detect</code> <code>/normalize</code></li>
+              <li>Typer CLI</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Not done / partial</h3>
+            <ul>
+              <li>Accuracy is only measured on the fixture set (unreviewed)</li>
+              <li>No ML model; short vowels are guessed</li>
+              <li>Detector is keyword/script heuristics, not trained</li>
+              <li>Not published to PyPI yet</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap section" aria-labelledby="quick-title">
+        <h2 id="quick-title">Quickstart</h2>
+        <pre class="mono" id="quickstart"><code>pip install -e ".[dev]"
+darija-toolkit transliterate "salam labas 3lik"
+uvicorn darija_toolkit.api:app --reload</code></pre>
+        <button class="btn btn-primary copy-btn" type="button" data-copy="quickstart">
+          Copy commands
+        </button>
+        <div class="badge-row">
+          <a href="https://github.com/mohamedtaqysalmi/darija-toolkit/actions/workflows/ci.yml"
+            ><img
+              alt="CI status"
+              src="https://github.com/mohamedtaqysalmi/darija-toolkit/actions/workflows/ci.yml/badge.svg"
+          /></a>
+          <a href="https://github.com/mohamedtaqysalmi/darija-toolkit"
+            ><img
+              alt="License MIT"
+              src="https://img.shields.io/badge/license-MIT-0f3d38"
+          /></a>
+        </div>
+      </section>
+
+      <section class="wrap section" aria-labelledby="how-title">
+        <h2 id="how-title">How it works</h2>
+        <p class="lede">
+          Digraphs and chat digits first, then position-aware vowels, then a tiny lexicon for words
+          the letter rules butcher. Alternatives come from swapping one option slot at a time.
+        </p>
+        <pre class="mono" aria-label="Architecture diagram">Arabizi token
+   │
+   ├─ lexicon hit? ──► fixed Arabic spelling
+   │
+   ├─ collapse elongations (mzyaaaan → mzyaan)
+   ├─ match digraphs / digits (ch, kh, 3, 7, 9…)
+   ├─ pick vowel options by position
+   └─ expand alternatives from non-default slots
+         │
+         ▼
+   best Arabic + ranked alternatives</pre>
+      </section>
+
+      <section class="wrap section" aria-labelledby="fail-title">
+        <h2 id="fail-title">Known failures</h2>
+        <p class="lede">
+          These fixture cases are marked <code>known_failure</code>. Expected is what I think a
+          speaker would write; the engine currently returns something else. Accuracy claims on this
+          page only refer to the fixture set we actually run in CI.
+        </p>
+        <div class="panel" style="overflow-x: auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Input</th>
+                <th>Expected</th>
+                <th>Engine</th>
+              </tr>
+            </thead>
+            <tbody id="failures"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="wrap section" aria-labelledby="built-title">
+        <h2 id="built-title">How I built it</h2>
+        <div class="decisions">
+          <article>
+            <h3>Rules as data, not a model</h3>
+            <p>
+              I needed something that runs offline, ships in a small package, and can be ported to
+              JS for this page. A fine-tuned model would score better on free text and worse on
+              install size, cold start and explainability in an interview.
+            </p>
+          </article>
+          <article>
+            <h3>Shared fixtures between Python and JS</h3>
+            <p>
+              The playground loads <code>rules.json</code> exported from the same tables the package
+              uses. The failure table is the fixture file. If they drift, CI and this page disagree
+              in public.
+            </p>
+          </article>
+          <article>
+            <h3>Honest xfail instead of silent wrong “passes”</h3>
+            <p>
+              Cases the rules get wrong stay in the suite as strict xfails. That keeps coverage of
+              the hard spots without lying that they pass.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap section" aria-labelledby="limits-title">
+        <h2 id="limits-title">Limitations</h2>
+        <ul>
+          <li>Fixtures are drafted and not native-speaker reviewed yet.</li>
+          <li>Final ـة vs ا, emphatics, and French loans are frequent miss points.</li>
+          <li>Detector will mis-label short mixed messages; treat scores as relative weights.</li>
+          <li>No PyPI release until I say so in the repo.</li>
+        </ul>
+        <p>
+          Roadmap lives in
+          <a href="https://github.com/mohamedtaqysalmi/darija-toolkit/issues">GitHub issues</a>.
+        </p>
+      </section>
+
+      <section class="wrap section" aria-labelledby="contrib-title">
+        <h2 id="contrib-title">Contribute</h2>
+        <p class="lede">
+          Review a fixture, add a failing case, or tighten a rule. See
+          <a href="https://github.com/mohamedtaqysalmi/darija-toolkit/blob/main/CONTRIBUTING.md"
+            >CONTRIBUTING.md</a
+          >.
+        </p>
+      </section>
+    </main>
+
+    <footer class="wrap site-footer">
+      <p>
+        Built by
+        <a href="https://github.com/mohamedtaqysalmi">Mohamed-Taqy Salmi</a>
+        · MIT ·
+        <a href="https://github.com/mohamedtaqysalmi/darija-toolkit">source</a>
+      </p>
+    </footer>
+
+    <script src="transliterate.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
