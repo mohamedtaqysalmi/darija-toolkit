@@ -1,0 +1,95 @@
+{
+  "description": "Normalization cases for chatbot cleanup. reviewed=false until checked by hand.",
+  "cases": [
+    {
+      "id": "elong-01",
+      "input": "saaaafi",
+      "expected": "safi",
+      "reviewed": false
+    },
+    {
+      "id": "elong-02",
+      "input": "mzyaaaaan",
+      "expected": "mzyan",
+      "reviewed": false
+    },
+    {
+      "id": "elong-03",
+      "input": "salaaaaam",
+      "expected": "salam",
+      "reviewed": false
+    },
+    {
+      "id": "elong-04",
+      "input": "hhhhhh",
+      "expected": "hh",
+      "reviewed": false
+    },
+    {
+      "id": "variant-05",
+      "input": "wash bgheet",
+      "expected": "wach bghit",
+      "reviewed": false
+    },
+    {
+      "id": "variant-06",
+      "input": "shhal kayn",
+      "expected": "chhal kayn",
+      "reviewed": false
+    },
+    {
+      "id": "variant-07",
+      "input": "mezian bzaf",
+      "expected": "mzyan bzaf",
+      "reviewed": false
+    },
+    {
+      "id": "variant-08",
+      "input": "slm a khouya",
+      "expected": "salam a khouya",
+      "reviewed": false
+    },
+    {
+      "id": "variant-09",
+      "input": "shukran bzaf",
+      "expected": "chokran bzaf",
+      "reviewed": false
+    },
+    {
+      "id": "punct-10",
+      "input": "wach!!! bghiti???",
+      "expected": "wach! bghiti?",
+      "reviewed": false
+    },
+    {
+      "id": "punct-11",
+      "input": "labas....",
+      "expected": "labas.",
+      "reviewed": false
+    },
+    {
+      "id": "space-12",
+      "input": "daba   nji",
+      "expected": "daba nji",
+      "reviewed": false
+    },
+    {
+      "id": "combo-13",
+      "input": "Waaash   bgheeeet!!!",
+      "expected": "Wach bghit!",
+      "reviewed": false
+    },
+    {
+      "id": "pass-14",
+      "input": "سلام دابا",
+      "expected": "سلام دابا",
+      "reviewed": false
+    },
+    {
+      "id": "pass-15",
+      "input": "fin kayn l7anout",
+      "expected": "fin kayn l7anout",
+      "reviewed": false
+    }
+  ]
+}
