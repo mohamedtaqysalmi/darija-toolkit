@@ -15,7 +15,6 @@ _ELONG_CONS = re.compile(r"([b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z])\1{2,}")
 _LAUGH_H = re.compile(r"[hH]{4,}")
 _PUNCT_RUN = re.compile(r"([!?.,])\1{1,}")
 _SPACE_RUN = re.compile(r"[ \t\u00a0]{2,}")
-_EDGE_SPACE = re.compile(r"^[ \t]+|[ \t]+$", re.MULTILINE)
 
 # Common Arabizi spelling variants seen in Moroccan chat. Keys are already lowercased
 # and elongation-collapsed forms.
@@ -103,7 +102,9 @@ def normalize(text: str) -> Normalization:
     if spaced != out:
         changes += 1
         out = spaced
-    edged = _EDGE_SPACE.sub("", out)
+    # Strip leading/trailing spaces and tabs per line without a multiline regex
+    # (CodeQL flags alternation + unbounded repeats on user text as ReDoS risk).
+    edged = "\n".join(line.strip(" \t") for line in out.split("\n"))
     if edged != out:
         changes += 1
         out = edged
