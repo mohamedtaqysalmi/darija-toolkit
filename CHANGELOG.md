@@ -10,3 +10,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Project scaffold: package layout, tooling configuration and a version test.
+- Community files (contributing guide, code of conduct, security policy, issue and PR templates), CI and CodeQL workflows, Dependabot configuration.
