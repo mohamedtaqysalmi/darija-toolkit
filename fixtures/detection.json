@@ -1,0 +1,81 @@
+{
+  "description": "Draft detection cases. Labels are heuristic; reviewed=false until checked by hand.",
+  "cases": [
+    {
+      "id": "arabizi-01",
+      "input": "wach bghiti daba",
+      "expected_label": "darija_arabizi",
+      "expected_segments": ["darija_arabizi"],
+      "reviewed": false
+    },
+    {
+      "id": "arabizi-02",
+      "input": "kan7ebbek bzaf",
+      "expected_label": "darija_arabizi",
+      "reviewed": false
+    },
+    {
+      "id": "arabizi-03",
+      "input": "labas 3lik khouya",
+      "expected_label": "darija_arabizi",
+      "reviewed": false
+    },
+    {
+      "id": "arabic-darija-04",
+      "input": "واش بغيت دابا",
+      "expected_label": "darija_arabic",
+      "expected_segments": ["darija_arabic"],
+      "reviewed": false
+    },
+    {
+      "id": "arabic-darija-05",
+      "input": "بزاف مزيان",
+      "expected_label": "darija_arabic",
+      "reviewed": false
+    },
+    {
+      "id": "msa-06",
+      "input": "هذا الكتاب في المكتبة",
+      "expected_label": "msa",
+      "reviewed": false
+    },
+    {
+      "id": "msa-07",
+      "input": "من الذي كان هنا",
+      "expected_label": "msa",
+      "reviewed": false
+    },
+    {
+      "id": "french-08",
+      "input": "bonjour comment ca va",
+      "expected_label": "french",
+      "expected_segments": ["french"],
+      "reviewed": false
+    },
+    {
+      "id": "french-09",
+      "input": "merci beaucoup pour votre aide",
+      "expected_label": "french",
+      "reviewed": false
+    },
+    {
+      "id": "mixed-10",
+      "input": "bonjour wach bghiti",
+      "expected_label": "mixed",
+      "expected_segments": ["french", "darija_arabizi"],
+      "reviewed": false
+    },
+    {
+      "id": "mixed-11",
+      "input": "سلام daba nji",
+      "expected_label": "mixed",
+      "reviewed": false
+    },
+    {
+      "id": "mixed-12",
+      "input": "merci بزاف a khouya",
+      "expected_label": "mixed",
+      "reviewed": false
+    }
+  ]
+}
