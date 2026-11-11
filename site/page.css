@@ -1,9 +1,5 @@
-/* darija-toolkit: accent colour and playground-only rules. Everything else is base.css. */
+/* darija-toolkit: playground-only rules. Everything else is base.css. */
 
-:root {
-  --accent-light: #8a6500;
-  --accent-dark: #e6c04a;
-}
 
 .output {
   min-height: 3.6rem;
@@ -26,7 +22,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding-block: 0.35rem;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--line-soft);
   margin: 0;
 }
 .alts .alt {
