@@ -9,5 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Rule-based Arabizi to Arabic-script transliteration (`darija_toolkit.transliterate`) with ranked alternatives for ambiguous tokens, and its rule tables as plain data in `darija_toolkit.rules`.
+- Draft transliteration fixtures (`fixtures/transliteration.json`), not yet reviewed by a native speaker.
 - Project scaffold: package layout, tooling configuration and a version test.
 - Community files (contributing guide, code of conduct, security policy, issue and PR templates), CI and CodeQL workflows, Dependabot configuration.

@@ -1,0 +1,263 @@
+{
+  "description": "Drafted by the assistant, not by a native speaker. Every case has reviewed=false until the owner checks it. known_failure marks cases the current rules get wrong; their expected output is what a speaker would write, not what the code returns.",
+  "cases": [
+    {
+      "id": "greetings-01",
+      "category": "greetings",
+      "input": "salam labas 3lik",
+      "expected": "سلام لاباس عليك",
+      "reviewed": false
+    },
+    {
+      "id": "greetings-02",
+      "category": "greetings",
+      "input": "sbah lkhir",
+      "expected": "صباح الخير",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "greetings-03",
+      "category": "greetings",
+      "input": "mrhba bik",
+      "expected": "مرحبا بيك",
+      "reviewed": false
+    },
+    {
+      "id": "greetings-04",
+      "category": "greetings",
+      "input": "bslama",
+      "expected": "بسلامة",
+      "reviewed": false
+    },
+    {
+      "id": "greetings-05",
+      "category": "greetings",
+      "input": "kifach dayr",
+      "expected": "كيفاش داير",
+      "reviewed": false
+    },
+    {
+      "id": "greetings-06",
+      "category": "greetings",
+      "input": "labas hamdulillah",
+      "expected": "لاباس الحمد لله",
+      "reviewed": false
+    },
+    {
+      "id": "digits-07",
+      "category": "digits",
+      "input": "kan7ebbek",
+      "expected": "كنحبك",
+      "reviewed": false
+    },
+    {
+      "id": "digits-08",
+      "category": "digits",
+      "input": "khouya 5dem",
+      "expected": "خويا خدم",
+      "reviewed": false
+    },
+    {
+      "id": "digits-09",
+      "category": "digits",
+      "input": "ma3reftch",
+      "expected": "ماعرفتش",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "digits-10",
+      "category": "digits",
+      "input": "3ndi 7bib",
+      "expected": "عندي حبيب",
+      "reviewed": false
+    },
+    {
+      "id": "digits-11",
+      "category": "digits",
+      "input": "2ana",
+      "expected": "أنا",
+      "reviewed": false
+    },
+    {
+      "id": "digits-12",
+      "category": "digits",
+      "input": "wach bghiti 9ahwa",
+      "expected": "واش بغيتي قهوة",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "digits-13",
+      "category": "digits",
+      "input": "9olt lik",
+      "expected": "قلت ليك",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "ambiguity-14",
+      "category": "ambiguity",
+      "input": "ghadi nmchi",
+      "expected": "غادي نمشي",
+      "reviewed": false
+    },
+    {
+      "id": "ambiguity-15",
+      "category": "ambiguity",
+      "input": "had chi dyal bzaf",
+      "expected": "هاد شي ديال بزاف",
+      "reviewed": false
+    },
+    {
+      "id": "ambiguity-16",
+      "category": "ambiguity",
+      "input": "ila bghiti",
+      "expected": "إلا بغيتي",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "ambiguity-17",
+      "category": "ambiguity",
+      "input": "ghir hna",
+      "expected": "غير هنا",
+      "reviewed": false
+    },
+    {
+      "id": "ambiguity-18",
+      "category": "ambiguity",
+      "input": "bghit nchri khobz",
+      "expected": "بغيت نشري خبز",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "ambiguity-19",
+      "category": "ambiguity",
+      "input": "kolchi mzyan",
+      "expected": "كلشي مزيان",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "ambiguity-20",
+      "category": "ambiguity",
+      "input": "wach 3endek chi 7aja",
+      "expected": "واش عندك شي حاجة",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "everyday-21",
+      "category": "everyday",
+      "input": "chno kat3ml daba",
+      "expected": "شنو كتعمل دابا",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-22",
+      "category": "everyday",
+      "input": "fin kayn l7anout",
+      "expected": "فين كاين لحانوت",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-23",
+      "category": "everyday",
+      "input": "mchit l dar",
+      "expected": "مشيت ل دار",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-24",
+      "category": "everyday",
+      "input": "ana hna",
+      "expected": "أنا هنا",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-25",
+      "category": "everyday",
+      "input": "daba nji",
+      "expected": "دابا نجي",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-26",
+      "category": "everyday",
+      "input": "nta zwin",
+      "expected": "نتا زوين",
+      "reviewed": false
+    },
+    {
+      "id": "mixed_french-27",
+      "category": "mixed_french",
+      "input": "merci bzaf a khouya",
+      "expected": "ميرسي بزاف أ خويا",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "mixed_french-28",
+      "category": "mixed_french",
+      "input": "bghit nakhod taxi",
+      "expected": "بغيت ناخد طاكسي",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "mixed_french-29",
+      "category": "mixed_french",
+      "input": "sir l bank",
+      "expected": "سير ل بانك",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "mixed_french-30",
+      "category": "mixed_french",
+      "input": "wach kayn wifi",
+      "expected": "واش كاين وايفاي",
+      "reviewed": false,
+      "known_failure": true
+    },
+    {
+      "id": "elongation-31",
+      "category": "elongation",
+      "input": "mzyaaaaan",
+      "expected": "مزيان",
+      "reviewed": false
+    },
+    {
+      "id": "elongation-32",
+      "category": "elongation",
+      "input": "salaaaaam",
+      "expected": "سلام",
+      "reviewed": false
+    },
+    {
+      "id": "elongation-33",
+      "category": "elongation",
+      "input": "wakhaaaa",
+      "expected": "واخا",
+      "reviewed": false
+    },
+    {
+      "id": "elongation-34",
+      "category": "elongation",
+      "input": "hhhhhh",
+      "expected": "ههه",
+      "reviewed": false
+    },
+    {
+      "id": "elongation-35",
+      "category": "elongation",
+      "input": "safii",
+      "expected": "صافي",
+      "reviewed": false,
+      "known_failure": true
+    }
+  ]
+}
