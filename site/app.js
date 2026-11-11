@@ -4,7 +4,7 @@
   const alts = document.getElementById("alts");
   const meta = document.getElementById("meta");
   const samples = document.getElementById("samples");
-  const failures = document.getElementById("failures");
+  const failureRows = document.getElementById("failure-rows");
 
   const sampleTexts = [
     "salam labas 3lik",
@@ -14,82 +14,93 @@
     "ghadi nmchi",
   ];
 
-  sampleTexts.forEach((text) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "chip";
-    btn.textContent = text;
-    btn.addEventListener("click", () => {
-      input.value = text;
-      render();
-      input.focus();
-    });
-    samples.appendChild(btn);
-  });
+  let engine = null;
 
-  const [rules, fixtures] = await Promise.all([
-    fetch("rules.json").then((r) => r.json()),
-    fetch("fixtures-transliteration.json").then((r) => r.json()),
-  ]);
+  function cell(text, className) {
+    const td = document.createElement("td");
+    td.textContent = text;
+    if (className) td.className = className;
+    return td;
+  }
 
-  const engine = window.DarijaToolkit.loadRules(rules);
+  function altRow(text, score, isAlternative) {
+    const li = document.createElement("li");
+    if (isAlternative) li.className = "alt";
+    const word = document.createElement("span");
+    word.className = "arabic";
+    word.lang = "ar";
+    word.dir = "rtl";
+    word.textContent = text;
+    const number = document.createElement("span");
+    number.className = "score";
+    number.textContent = score;
+    li.append(word, number);
+    return li;
+  }
 
   function render() {
+    if (!engine) return;
     const result = engine.transliterate(input.value || "");
-    output.textContent = result.text || "—";
-    alts.innerHTML = "";
-    const ambiguous = result.tokens.filter((t) => t.alternatives.length);
+    output.textContent = result.text || "…";
+    alts.replaceChildren();
+    const ambiguous = result.tokens.filter((token) => token.alternatives.length);
     meta.textContent = ambiguous.length
-      ? `${ambiguous.length} ambiguous token(s). Scores are hand weights, not probabilities.`
-      : "No ambiguous tokens in this input.";
+      ? `${ambiguous.length} ambiguous word${ambiguous.length === 1 ? "" : "s"}. Scores rank the options; they are not probabilities.`
+      : "No ambiguous words in this input.";
     ambiguous.forEach((token) => {
-      const block = document.createElement("li");
-      block.innerHTML = `<span><code>${escapeHtml(token.source)}</code> → <span class="arab">${escapeHtml(token.best.text)}</span> <span class="meta">(${token.best.score})</span></span>`;
-      alts.appendChild(block);
-      token.alternatives.forEach((alt) => {
-        const row = document.createElement("li");
-        row.innerHTML = `<span class="arab">${escapeHtml(alt.text)}</span><span class="meta">${alt.score}</span>`;
-        alts.appendChild(row);
-      });
+      alts.appendChild(altRow(token.best.text, token.best.score, false));
+      token.alternatives.forEach((alt) => alts.appendChild(altRow(alt.text, alt.score, true)));
     });
   }
 
-  function escapeHtml(value) {
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;");
-  }
-
-  (fixtures.cases || [])
-    .filter((c) => c.known_failure)
-    .forEach((c) => {
-      const engineOut = engine.transliterate(c.input).text;
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td><code>${escapeHtml(c.input)}</code></td>
-        <td class="arab-cell">${escapeHtml(c.expected)}</td>
-        <td class="arab-cell fail">${escapeHtml(engineOut)}</td>`;
-      failures.appendChild(tr);
+  sampleTexts.forEach((text) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "chip";
+    button.textContent = text;
+    button.addEventListener("click", () => {
+      input.value = text;
+      render();
     });
-
-  document.querySelectorAll("[data-copy]").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const id = btn.getAttribute("data-copy");
-      const node = document.getElementById(id);
-      const text = node ? node.innerText : "";
-      try {
-        await navigator.clipboard.writeText(text);
-        btn.textContent = "Copied";
-        setTimeout(() => {
-          btn.textContent = "Copy commands";
-        }, 1200);
-      } catch {
-        btn.textContent = "Copy failed";
-      }
-    });
+    samples.appendChild(button);
   });
+
+  try {
+    const [rules, fixtures] = await Promise.all([
+      fetch("rules.json").then((response) => response.json()),
+      fetch("fixtures-transliteration.json").then((response) => response.json()),
+    ]);
+    engine = window.DarijaToolkit.loadRules(rules);
+
+    const cases = fixtures.cases || [];
+    const failing = cases.filter((item) => item.known_failure);
+    document.getElementById("fact-fixtures").textContent = String(cases.length);
+    document.getElementById("fact-failures").textContent = String(failing.length);
+
+    failureRows.replaceChildren();
+    failing.forEach((item) => {
+      const row = document.createElement("tr");
+      const source = document.createElement("td");
+      const code = document.createElement("code");
+      code.textContent = item.input;
+      source.appendChild(code);
+      row.append(
+        source,
+        cell(item.expected, "arabic"),
+        cell(engine.transliterate(item.input).text, "arabic miss"),
+      );
+      failureRows.appendChild(row);
+    });
+  } catch {
+    meta.textContent = "Could not load the rule files. Reload the page to try again.";
+    failureRows.replaceChildren();
+    const row = document.createElement("tr");
+    const td = cell("Could not load the fixture file. Reload the page to try again.");
+    td.colSpan = 3;
+    row.appendChild(td);
+    failureRows.appendChild(row);
+    return;
+  }
 
   input.addEventListener("input", render);
   render();
