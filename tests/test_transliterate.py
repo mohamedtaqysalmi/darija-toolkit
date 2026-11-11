@@ -26,11 +26,11 @@ def test_fixture(source: str, expected: str) -> None:
 
 
 def test_fixture_file_is_well_formed() -> None:
-    assert len(CASES) >= 30
+    assert len(CASES) >= 60
     ids = [c["id"] for c in CASES]
     assert len(ids) == len(set(ids))
     assert all(c["reviewed"] is False for c in CASES)
-    assert {"greetings", "digits", "ambiguity", "mixed_french", "elongation"} <= {
+    assert {"greetings", "digits", "ambiguity", "mixed_french", "elongation", "everyday"} <= {
         c["category"] for c in CASES
     }
 

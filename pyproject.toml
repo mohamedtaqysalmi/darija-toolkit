@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "darija-toolkit"
-version = "0.0.1"
+version = "0.1.0"
 description = "Transliteration, detection and normalization for Moroccan Darija text."
 readme = "README.md"
 license = "MIT"
@@ -19,7 +19,11 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "Typing :: Typed",
 ]
-dependencies = []
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.32,<1",
+    "typer>=0.12,<1",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -27,8 +31,12 @@ dev = [
     "mypy",
     "pytest",
     "pytest-cov",
+    "httpx",
     "pre-commit",
 ]
+
+[project.scripts]
+darija-toolkit = "darija_toolkit.cli:main"
 
 [project.urls]
 Homepage = "https://mohamedtaqysalmi.github.io/darija-toolkit/"

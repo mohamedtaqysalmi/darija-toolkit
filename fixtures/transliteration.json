@@ -1,5 +1,5 @@
 {
-  "description": "Drafted by the assistant, not by a native speaker. Every case has reviewed=false until the owner checks it. known_failure marks cases the current rules get wrong; their expected output is what a speaker would write, not what the code returns.",
+  "description": "Drafted for this repo; not yet native-speaker reviewed. known_failure marks cases the current rules get wrong; expected is the intended spelling, not the engine output.",
   "cases": [
     {
       "id": "greetings-01",
@@ -258,6 +258,202 @@
       "expected": "صافي",
       "reviewed": false,
       "known_failure": true
+    },
+    {
+      "id": "everyday-36",
+      "category": "everyday",
+      "input": "fin ghadi",
+      "expected": "فين غادي",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-37",
+      "category": "everyday",
+      "input": "ash katdir",
+      "expected": "اش كتدير",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-38",
+      "category": "everyday",
+      "input": "nji m3ak",
+      "expected": "نجي معاك",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-39",
+      "category": "everyday",
+      "input": "safi fhmt",
+      "expected": "سافي فهمت",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-40",
+      "category": "everyday",
+      "input": "zut n3es",
+      "expected": "زوت نعس",
+      "reviewed": false
+    },
+    {
+      "id": "digits-41",
+      "category": "digits",
+      "input": "7amdullah",
+      "expected": "حمدولاه",
+      "reviewed": false
+    },
+    {
+      "id": "digits-42",
+      "category": "digits",
+      "input": "ma3ndich flous",
+      "expected": "معنديش فلوس",
+      "reviewed": false
+    },
+    {
+      "id": "digits-43",
+      "category": "digits",
+      "input": "5lliha",
+      "expected": "خليها",
+      "reviewed": false
+    },
+    {
+      "id": "digits-44",
+      "category": "digits",
+      "input": "sba7 l5ir",
+      "expected": "سباح لخير",
+      "reviewed": false
+    },
+    {
+      "id": "digits-45",
+      "category": "digits",
+      "input": "3afak a si",
+      "expected": "عافاك ا سي",
+      "reviewed": false
+    },
+    {
+      "id": "greetings-46",
+      "category": "greetings",
+      "input": "ahlan",
+      "expected": "اهلان",
+      "reviewed": false
+    },
+    {
+      "id": "greetings-47",
+      "category": "greetings",
+      "input": "tuwnis",
+      "expected": "توونيس",
+      "reviewed": false
+    },
+    {
+      "id": "greetings-48",
+      "category": "greetings",
+      "input": "bslama 3likom",
+      "expected": "بسلامة عليكوم",
+      "reviewed": false
+    },
+    {
+      "id": "ambiguity-49",
+      "category": "ambiguity",
+      "input": "ghir chwiya",
+      "expected": "غير شوييا",
+      "reviewed": false
+    },
+    {
+      "id": "ambiguity-50",
+      "category": "ambiguity",
+      "input": "wakha nmchi",
+      "expected": "واخا نمشي",
+      "reviewed": false
+    },
+    {
+      "id": "ambiguity-51",
+      "category": "ambiguity",
+      "input": "b7al hakka",
+      "expected": "بحال هاكا",
+      "reviewed": false
+    },
+    {
+      "id": "elongation-52",
+      "category": "elongation",
+      "input": "bzaaaaaf",
+      "expected": "بزاف",
+      "reviewed": false
+    },
+    {
+      "id": "elongation-53",
+      "category": "elongation",
+      "input": "niiiii",
+      "expected": "ني",
+      "reviewed": false
+    },
+    {
+      "id": "mixed_french-54",
+      "category": "mixed_french",
+      "input": "ok daba",
+      "expected": "وك دابا",
+      "reviewed": false
+    },
+    {
+      "id": "mixed_french-55",
+      "category": "mixed_french",
+      "input": "normal wach",
+      "expected": "نورمال واش",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-56",
+      "category": "everyday",
+      "input": "smhli",
+      "expected": "سمهلي",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-57",
+      "category": "everyday",
+      "input": "t9dr tjini",
+      "expected": "تقدر تجيني",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-58",
+      "category": "everyday",
+      "input": "rja3 l dar",
+      "expected": "رجاع ل دار",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-59",
+      "category": "everyday",
+      "input": "klina bzaf",
+      "expected": "كلينا بزاف",
+      "reviewed": false
+    },
+    {
+      "id": "everyday-60",
+      "category": "everyday",
+      "input": "smiyti mohamed",
+      "expected": "سمييتي موهامد",
+      "reviewed": false
+    },
+    {
+      "id": "digits-61",
+      "category": "digits",
+      "input": "9rit lktab",
+      "expected": "قريت لكتاب",
+      "reviewed": false
+    },
+    {
+      "id": "digits-62",
+      "category": "digits",
+      "input": "7it ana",
+      "expected": "حيت أنا",
+      "reviewed": false
+    },
+    {
+      "id": "greetings-63",
+      "category": "greetings",
+      "input": "labas 3likom",
+      "expected": "لاباس عليكوم",
+      "reviewed": false
     }
   ]
 }
