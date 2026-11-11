@@ -150,34 +150,6 @@ a {
   color: #f4f7f5;
   max-width: 38rem;
   padding-top: 5rem;
-  animation: rise 0.7s ease-out both;
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(1.1rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes drift {
-  from {
-    transform: translate(10%, -10%) scale(1);
-  }
-  to {
-    transform: translate(4%, -4%) scale(1.06);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-inner,
-  .hero::after {
-    animation: none;
-  }
 }
 
 .hero-brand {
@@ -220,10 +192,20 @@ a {
   }
 }
 
+@keyframes drift {
+  from {
+    transform: translate(10%, -10%) scale(1);
+  }
+  to {
+    transform: translate(4%, -4%) scale(1.06);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-brand,
   .hero p,
-  .cta-row {
+  .cta-row,
+  .hero::after {
     animation: none;
   }
 }

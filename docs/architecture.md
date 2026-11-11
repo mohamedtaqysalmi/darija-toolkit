@@ -1,56 +1,66 @@
 # Architecture
 
-Short decisions for v0.1.0. Each ADR is one choice and what it costs.
+darija-toolkit is a small offline pre-processor for Moroccan Darija chat text: rule tables as data, thin Python APIs (library, CLI, FastAPI), and a static JS playground that loads the same tables.
 
-## ADR-001: Rule tables as data, not a trained model
+## Context diagram
 
-**Decision.** Transliteration lives in plain Python/JSON tables (`rules.py` → `rules.json` for the browser). Scoring is hand-weighted.
-
-**Why.** Offline install, tiny package, explainable options in interviews, and a JS port that shares the same fixtures.
-
-**Trade-off.** Accuracy on free chat text will lag a fine-tuned model. Short vowels are guessed. Fixture accuracy is the only measured number so far.
-
-## ADR-002: Shared fixtures drive Python tests and the Pages playground
-
-**Decision.** `fixtures/transliteration.json` is the source of truth for expected Arabizi→Arabic cases. The site ships a copy (`site/fixtures-transliteration.json`) and loads `site/rules.json` exported from the same tables.
-
-**Why.** Drift between the package and the demo would show up in public.
-
-**Trade-off.** Exports are manual until a sync script lands (tracked for v0.2.0). Reviewers must update both copies when rules change.
-
-## ADR-003: Strict xfails for known wrong spellings
-
-**Decision.** Cases the engine currently gets wrong stay in the suite with `known_failure: true` and `pytest.xfail`.
-
-**Why.** Hiding them would inflate pass rates. Dropping them would lose coverage of hard spots (ـة vs ا, emphatics, loans).
-
-**Trade-off.** The headline “N passed” still needs the xfail count next to it. Fixture expected values are drafts until a native speaker reviews them.
-
-## ADR-004: Heuristic detector, not a classifier
-
-**Decision.** `detect()` labels segments with script cues, chat digits, digraphs and short keyword lists. Overall label is `mixed` when more than one label appears.
-
-**Why.** Good enough as a chatbot pre-filter; no model weights to ship; scores stay relative.
-
-**Trade-off.** Short mixed messages mis-label often. Scores are not calibrated probabilities.
-
-## ADR-005: Thin FastAPI + Typer over the same library calls
-
-**Decision.** HTTP and CLI are thin wrappers around `transliterate`, `detect` and `normalize`. No separate service layer.
-
-**Why.** One behavior surface for tests; interview demos can use package, CLI or `/docs` without divergent logic.
-
-**Trade-off.** Auth, rate limits and batching are out of scope for v0.1.0. The API is meant for local/dev use until that changes.
-
-## Pipeline sketch
-
-```mermaid
-flowchart LR
-  In[Chat text] --> Norm[normalize]
-  Norm --> Det[detect]
-  Det -->|darija_arabizi| Tr[transliterate]
-  Det -->|other labels| Out[Pass through / route]
-  Tr --> Out
+```
+Arabizi / mixed chat
+        │
+        ├─► normalize() ──► cleaned Latin / punctuation
+        ├─► detect()    ──► segments + label
+        └─► transliterate() ──► Arabic script + alternatives
+                │
+                ├─ Python package / Typer CLI / FastAPI
+                └─ site/ JS engine (rules.json)
 ```
 
-Normalization is optional upstream of detect/transliterate. Detection does not call transliteration; callers compose the three functions.
+## ADR-001: Rules as data, not a trained model
+
+**Status:** Accepted (v0.1.0)
+
+**Context:** Arabizi → Arabic needs something that installs fast, runs offline, and can be explained in an interview. A fine-tuned model would likely score better on free text.
+
+**Decision:** Encode digraphs, chat digits, vowel options and a tiny lexicon in `rules.py`, export JSON for the playground, and keep scoring as explicit hand weights.
+
+**Consequences:** Explainable and portable; short vowels and edge spellings stay weak. Accuracy is only claimed against fixtures.
+
+## ADR-002: Shared fixtures with honest xfails
+
+**Status:** Accepted (v0.1.0)
+
+**Context:** Silent wrong “passes” hide the hard cases. Draft fixtures will be wrong until a native speaker reviews them.
+
+**Decision:** Keep expected strings in JSON under `fixtures/`. Mark known bad engine outputs `known_failure` and assert them as strict xfails. Detection/normalization cases carry `reviewed: false` until checked by hand.
+
+**Consequences:** CI stays green without lying. Fixture drift between Python and the Pages failure table is visible in public.
+
+## ADR-003: Heuristic detection before ML
+
+**Status:** Accepted (v0.1.0)
+
+**Context:** A chatbot pre-filter needs to know whether a segment is Arabizi, Darija Arabic, MSA or French. Training data and a model ops story are out of scope for 0.1.0.
+
+**Decision:** Tokenize on whitespace, score Latin vs Arabic with small cue lists and script markers (`ڭگپڤ`), merge adjacent same-label tokens, return `mixed` when labels disagree.
+
+**Consequences:** Fast and dependency-free; short or code-switched messages will be wrong often. Scores are relative weights inside one segment.
+
+## ADR-004: Thin FastAPI + Typer over one library
+
+**Status:** Accepted (v0.1.0)
+
+**Context:** Portfolio use wants a callable API and a CLI without duplicating logic.
+
+**Decision:** Implement behavior once in `detect` / `normalize` / `transliterate`. Wrap with FastAPI Pydantic models and Typer commands that optionally emit JSON matching the API shapes.
+
+**Consequences:** One place to fix bugs. No auth, rate limits or persistence in 0.1.0 — local demo only.
+
+## ADR-005: Static Pages playground, not a hosted API
+
+**Status:** Accepted (v0.1.0)
+
+**Context:** A live demo should not require paying for always-on Python hosting for a portfolio site.
+
+**Decision:** Ship a JS port under `site/` that fetches `rules.json` and fixtures client-side. Deploy with GitHub Actions Pages from `/site`.
+
+**Consequences:** Zero runtime cost and works offline after first load. Python and JS can drift if exports are not refreshed when rules change — treat that as a release checklist item.

@@ -1,71 +1,45 @@
 # Test report — v0.1.0
 
-Local gate run used before opening the release PR. CI on GitHub is the public record after merge.
+Local run on Windows before the v0.1.0 release PR.
 
-## Environment
-
-| Item | Value |
-| --- | --- |
+| Field | Value |
+|-------|--------|
 | Date | 2026-11-11 |
-| OS | Windows 10 (local) |
-| Python | 3.15.2 (local); CI matrix 3.11 and 3.14 |
-| Package version | 0.1.0 |
-| Install | `pip install -e ".[dev]"` |
+| Host | Windows 10 (`win32`) |
+| Interpreter | CPython 3.15.2 (local); CI matrix is 3.11 and 3.14 |
+| Command | `pytest --cov-fail-under=85` |
+| Result | **148 passed**, **13 xfailed**, 1 warning |
+| Coverage | **98.45%** statements/branches (fail_under 85%) |
 
-## Commands
-
-```bash
-ruff check .
-ruff format --check .
-mypy
-pytest
-```
-
-## Results
-
-| Gate | Result |
-| --- | --- |
-| ruff check | pass |
-| ruff format --check | pass |
-| mypy (strict) | pass |
-| pytest | **148 passed**, **13 xfailed**, 0 failed |
-| Coverage (branch) | **98.45%** (fail_under 85) |
-
-### Coverage by module (local)
+## Coverage by module
 
 | Module | Cover |
-| --- | --- |
+|--------|-------|
 | `__init__.py` | 100% |
 | `api.py` | 100% |
-| `cli.py` | 96% (`if __name__ == "__main__"` uncovered) |
+| `cli.py` | 96% |
 | `detect.py` | 100% |
 | `normalize.py` | 100% |
 | `rules.py` | 100% |
 | `transliterate.py` | 97% |
-| **Total** | **98%** |
+| **TOTAL** | **98%** |
 
-## Fixtures
+## Fixture inventory
 
-| Suite | Cases | Notes |
-| --- | --- | --- |
-| `fixtures/transliteration.json` | 63 | 13 marked `known_failure` → xfail |
-| `fixtures/detection.json` | 12 | heuristic labels, `reviewed: false` |
-| `fixtures/normalization.json` | 15 | idempotence also asserted in tests |
+| File | Cases | Notes |
+|------|-------|--------|
+| `fixtures/transliteration.json` | 63 | 13 marked `known_failure` → strict xfail |
+| `fixtures/detection.json` | 12 | draft labels, `reviewed: false` |
+| `fixtures/normalization.json` | 15 | draft expected strings |
 
-## Smoke (library)
+## Xfails
 
-```text
-transliterate("salam labas 3lik") → سلام لاباس عليك
-detect("bonjour wach") → mixed
-normalize("saaaafi!!!") → safi!
-```
+The 13 xfails are intentional transliteration misses kept in the suite so regressions on hard cases stay visible. They are not counted as passes. See the `known_failure` entries in `fixtures/transliteration.json` and the Known failures table on the playground.
 
 ## Warnings
 
-- Starlette deprecation: prefer `httpx2` with `TestClient` in a later dependency bump (non-blocking).
+`StarletteDeprecationWarning` from FastAPI `TestClient` / httpx on this environment. Does not fail the suite; track upstream when upgrading FastAPI/Starlette.
 
-## Not covered here
+## CI expectation
 
-- GitHub Pages visual QA (see [QA.md](QA.md))
-- Demo GIF
-- Native-speaker fixture review
+GitHub Actions runs the same lint, type-check, test, and build steps on Ubuntu for Python 3.11 and 3.14. A green `main` CI run is the release gate alongside this local report.
