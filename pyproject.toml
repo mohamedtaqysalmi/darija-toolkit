@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "darija-toolkit"
+version = "0.0.1"
+description = "Transliteration, detection and normalization for Moroccan Darija text."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{ name = "Mohamed-Taqy Salmi" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Typing :: Typed",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+    "pre-commit",
+]
+
+[project.urls]
+Homepage = "https://mohamedtaqysalmi.github.io/darija-toolkit/"
+Repository = "https://github.com/mohamedtaqysalmi/darija-toolkit"
+Changelog = "https://github.com/mohamedtaqysalmi/darija-toolkit/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/darija_toolkit"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "C4", "RUF"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+python_version = "3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=darija_toolkit --cov-report=term-missing"
+
+[tool.coverage.run]
+branch = true
+source = ["darija_toolkit"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
