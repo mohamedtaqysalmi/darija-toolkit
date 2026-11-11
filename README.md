@@ -39,11 +39,11 @@ print(transliterate("salam labas 3lik").text)  # سلام لاباس عليك
 
 # Ambiguous tokens come with ranked alternatives and heuristic scores.
 token = transliterate("kan7ebbek").tokens[0]
-print(token.best)          # Candidate(text='كنحبك', score=…)
+print(token.best)  # Candidate(text='كنحبك', score=…)
 print(token.alternatives)  # next-best spellings, best first
 
 print(detect("wach bghiti merci").label)  # mixed (or darija_arabizi / french / …)
-print(normalize("saaaafi!!!").text)       # safi!
+print(normalize("saaaafi!!!").text)  # safi!
 ```
 
 ### Transliteration
